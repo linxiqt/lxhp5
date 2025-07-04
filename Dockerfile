@@ -1,5 +1,9 @@
 FROM php:8.0-apache
 
-COPY . /var/www/html/
+COPY . /tmp/html
 
-RUN chown -R www-data:www-data /var/www/html
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["apache2-foreground"]
